@@ -14,13 +14,25 @@ module.exports = {
         lg: '24px',
         xl: '36px'
       },
+      padding: {
+        2: '2px',
+        sm: '8px',
+        lg: '24px',
+        xl: '48px'
+      },
       margin: {
+        5: '5px',
+        6: '6px',
         sm: '8px',
         10: '10px',
+        14: '14px',
+        16: '16px',
         md: '16px',
         lg: '24px',
+        28: '28px',
         40: '40px',
         xl: '48px',
+        56: '56px',
         251: '251px',
         347: '347px'
       },
@@ -36,7 +48,10 @@ module.exports = {
       },
       colors: {
         lightGreen: '#CFF37D',
-        darkGreen: '#7DE88C'
+        darkGreen: '#7DE88C',
+        blue: '#186DD6',
+        lightRed: '#FFB199',
+        red: '#FF0844'
       },
       gridTemplateColumns: {
         14: 'repeat(14, minmax(0, 1fr))',

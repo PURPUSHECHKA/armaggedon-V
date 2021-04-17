@@ -1,13 +1,13 @@
 import React, { memo } from 'react'
 
-import Head from './head'
-import BodyInfo from './BodyInfo'
+import Head from '../head'
+import BodyInfo from './MainInfo'
 import Header from './Header'
 import Footer from './Footer'
 
-const Main = () => {
+const App = () => {
   return (
-    <div className="flex flex-col  w-920 mr-auto ml-auto border">
+    <div className="flex flex-col w-920 mr-auto ml-auto">
       <Head title="V" />
       <Header />
       <BodyInfo />
@@ -16,6 +16,6 @@ const Main = () => {
   )
 }
 
-Main.propTypes = {}
+App.propTypes = {}
 
-export default memo(Main)
+export default memo(App)

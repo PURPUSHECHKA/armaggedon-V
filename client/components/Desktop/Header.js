@@ -9,8 +9,8 @@ const Header = () => {
           <button type="button" className="flex items-center ml-auto font-bold focus:outline-none">
             Астероиды
           </button>
-          <button type="button" className="flex items-center ml-lg underline focus:outline-none">
-            Уничтожение
+          <button type="button" className="flex items-center ml-lg focus:outline-none">
+            <span className="border-b border-black">Уничтожение</span>
           </button>
         </div>
         <p className="mb-lg">

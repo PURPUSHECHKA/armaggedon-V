@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Helmet } from 'react-helmet'
 
-const Head = ({title}) => (
+const Head = ({ title }) => (
   <Helmet>
     <title>ARMAGGEDON {title}</title>
     <meta charSet="utf-8" />
