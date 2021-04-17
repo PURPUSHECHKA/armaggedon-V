@@ -45,6 +45,7 @@ const config = {
     watchContentBase: true,
     host: '0.0.0.0',
     port: CLIENT_PORT,
+    open: true,
     useLocalIp: true,
     historyApiFallback: true,
     overlay: {
