@@ -7,6 +7,7 @@ module.exports = {
       },
       height: {
         1: '1px',
+        145: '145px',
         200: '200px'
       },
       fontSize: {
@@ -27,8 +28,9 @@ module.exports = {
         10: '10px',
         14: '14px',
         16: '16px',
-        md: '16px',
-        lg: '24px',
+        18: '18px',
+        19: '19px',
+        24: '24px',
         28: '28px',
         40: '40px',
         xl: '48px',
@@ -38,6 +40,11 @@ module.exports = {
       },
       fontFamily: {
         helvetica: ['Helvetica']
+      },
+      fontSize: {
+        16: '16px',
+        24: '24px',
+        36: '36px'
       },
       borderRadius: {
         none: '0',

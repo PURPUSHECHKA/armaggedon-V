@@ -1,26 +1,31 @@
 import React, { memo } from 'react'
 import CardsSection from './CardsSection'
 
-const BodyInfo = () => {
+const MainInfo = () => {
   return (
     <main>
       <article className="flex flex-col mb-56">
         <hr className=" h-1 border-none bg-black mb-lg" />
-        <div div className="flex flex-row mb-lg">
+        <div div className="flex flex-col md:flex-row mb-24">
           <form onSubmit="STATE">
             <label htmlFor="filterOutOnlyDangerous">
-              <input className="mr-10" type="checkbox" name="dataCard" value="cards" />
+              <input
+                className="mb-16 md:mb-0 mr-10"
+                type="checkbox"
+                name="dataCard"
+                value="cards"
+              />
               Показать только опасные
             </label>
           </form>
-          <span className="ml-auto">
-            Расстояние в{' '}
-            <button type="button" className="font-bold focus:outline-none">
-              километрах
+          <span className="md:ml-auto">
+            Расстояние &nbsp;
+            <button type="button" className="font-bold focus:outline-none whitespace-pre">
+              в километрах,
             </button>
-            , в{' '}
+            &nbsp;
             <button type="button" className="focus:outline-none">
-              <span className="border-b border-black">дистанциях до луны</span>
+              <span className="border-b border-black">в дистанциях до луны</span>
             </button>
           </span>
         </div>
@@ -29,6 +34,6 @@ const BodyInfo = () => {
     </main>
   )
 }
-BodyInfo.propTypes = {}
+MainInfo.propTypes = {}
 
-export default memo(BodyInfo)
+export default memo(MainInfo)
