@@ -1,10 +1,10 @@
 import React, { memo } from 'react'
-import CardsSection from './CardsSection'
+import SectionCards from './SectionCards'
 
 const MainInfo = () => {
   return (
     <main>
-      <article className="flex flex-col mb-56">
+      <article className="flex flex-col mb-32 md:mb-56">
         <hr className=" h-1 border-none bg-black mb-lg" />
         <div div className="flex flex-col md:flex-row mb-24">
           <form onSubmit="STATE">
@@ -29,7 +29,7 @@ const MainInfo = () => {
             </button>
           </span>
         </div>
-        <CardsSection />
+        <SectionCards />
       </article>
     </main>
   )

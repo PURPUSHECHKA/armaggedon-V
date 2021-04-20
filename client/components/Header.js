@@ -11,7 +11,7 @@ const Header = () => {
           </span>
         </div>
         <div className="grid justify-self-start text-left grid-cols-2 md:col-span-1 mb-auto md:ml-auto">
-          <button type="button" className="md:text-right md:ml-auto focus:outline-none">
+          <button type="button" className="text-left md:text-right md:ml-auto focus:outline-none">
             <span className="font-bold"> Астероиды</span>
           </button>
           <button type="button" className="md:text-right md:ml-24 focus:outline-none">

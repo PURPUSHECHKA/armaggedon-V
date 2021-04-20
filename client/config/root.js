@@ -5,7 +5,7 @@ import { Switch, Route, Redirect, StaticRouter } from 'react-router-dom'
 
 import store, { history } from '../redux'
 
-import App from '../components/Desktop/App'
+import App from '../components/App'
 import NotFound from '../components/404'
 
 import Startup from './startup'

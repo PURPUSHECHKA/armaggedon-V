@@ -1,6 +1,10 @@
 module.exports = {
   purge: ['./client/**/*.html', './client/**/*.jsx', './client/**/*.js'],
   theme: {
+    screens: {
+      md: {min: '768px'},
+      mdmax: { max: '767px'}
+    },
     extend: {
       width: {
         920: '920px'
@@ -24,19 +28,20 @@ module.exports = {
       margin: {
         5: '5px',
         6: '6px',
-        sm: '8px',
+        8: '8px',
         10: '10px',
         14: '14px',
         16: '16px',
         18: '18px',
         19: '19px',
+        22: '22px',
         24: '24px',
         28: '28px',
+        32: '32px',
         40: '40px',
-        xl: '48px',
+        48: '48px',
         56: '56px',
-        251: '251px',
-        347: '347px'
+
       },
       fontFamily: {
         helvetica: ['Helvetica']
@@ -63,6 +68,10 @@ module.exports = {
       gridTemplateColumns: {
         14: 'repeat(14, minmax(0, 1fr))',
         footer: '200px minmax(900px, 1fr) 100px'
+      },
+      gridTemplateRows: {
+        8: 'repeat(8, minmax(0, 1fr))',
+        layout: '200px minmax(900px, 1fr) 100px'
       },
       gridColumnStart: {
         13: '13',
