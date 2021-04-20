@@ -1,6 +1,15 @@
 import React, { memo } from 'react'
+import { useSelector } from 'react-redux'
 
-const MobInfoBlock = () => {
+const MobInfoBlock = ({ diameter, distance, hazardous }) => {
+  const { changedDistances } = useSelector((s) => s.reducerFlagRender)
+
+  const getDistance = () => {
+    const kilometers = Math.round(distance.kilometers)
+    const lunar = Math.round(distance.lunar)
+    return (changedDistances && `${lunar}`) || `${kilometers} км`
+  }
+
   return (
     <div className="md:hidden mx-16 mb-19">
       <div className="mb-22">
@@ -12,18 +21,18 @@ const MobInfoBlock = () => {
         <div className="flex flex-row mb-8">
           <span>Расстояние</span>
           <span className="flex flex-grow border-b border-black border-dashed mb-1" />
-          <span>7 235 024 км</span>
+          <span>{getDistance()}</span>
         </div>
         <div className="flex flex-row">
           <span>Размер</span>
           <span className="flex flex-grow border-b border-black border-dashed mb-1" />
-          <span>85 м</span>
+          <span>{diameter} м</span>
         </div>
       </div>
       <div className="text-center mx-48">
         <span>
           Оценка: <br />
-          <p className="font-bold mb-8">Не опасен</p>
+          <p className="font-bold mb-8">{(hazardous && 'Опасен') || 'Не опасен'}</p>
         </span>
         <button
           type="button"

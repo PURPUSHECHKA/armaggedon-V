@@ -5,10 +5,13 @@ import bodyParser from 'body-parser'
 import sockjs from 'sockjs'
 import { renderToStaticNodeStream } from 'react-dom/server'
 import React from 'react'
+import axios from 'axios'
 
 import cookieParser from 'cookie-parser'
 import config from './config'
 import Html from '../client/html'
+
+const { readFile, writeFile } = require('fs').promises
 
 require('colors')
 
@@ -34,6 +37,31 @@ const middleware = [
 ]
 
 middleware.forEach((it) => server.use(it))
+
+const readingFile = async (file) => {
+  const dataOfTheCurrentWeek = await readFile(`${__dirname}/data/${file}`, { encoding: 'utf8' })
+  const dataOfTheCurrentWeekParse = JSON.parse(dataOfTheCurrentWeek)
+  return dataOfTheCurrentWeekParse
+}
+
+const writingFile = (data, file) => {
+  return writeFile(`${__dirname}/data/${file}`, JSON.stringify(data), {encoding: 'utf8'})
+}
+
+server.get('/api/v1/initialListOfAsteroids', async (req, res) => {
+  try {
+    const initialList = await readingFile('initialListOfAsteroids.json')
+    res.send(initialList)
+  } catch (err) {
+    const currencyDate = new Date().toISOString().slice(0, 10)
+    const url = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${currencyDate}&api_key=DEMO_KEY`
+    const {
+      data: { near_earth_objects: getObjectOfList }
+    } = await axios(url)
+    writingFile(getObjectOfList, 'initialListOfAsteroids.json')
+    res.send(getObjectOfList)
+  }
+})
 
 server.use('/api/', (req, res) => {
   res.status(404)

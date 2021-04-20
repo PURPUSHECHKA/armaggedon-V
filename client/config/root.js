@@ -7,7 +7,7 @@ import store, { history } from '../redux'
 
 import App from '../components/App'
 import NotFound from '../components/404'
-
+import BasketForDestroy from '../components/BasketForDestroy'
 import Startup from './startup'
 
 const OnlyAnonymousRoute = ({ component: Component, ...rest }) => {
@@ -48,6 +48,7 @@ const RootComponent = (props) => {
         <Startup>
           <Switch>
             <Route exact path="/" component={App} />
+            <Route exact path="/Destroy" component={BasketForDestroy} />
             <PrivateRoute exact path="/hidden-route" component={App} />
             <OnlyAnonymousRoute exact path="/anonymous-route" component={App} />
             <Route component={NotFound} />
