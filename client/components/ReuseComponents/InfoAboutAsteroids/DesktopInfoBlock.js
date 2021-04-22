@@ -1,14 +1,29 @@
-import React, { memo } from 'react'
-import {useSelector} from 'react-redux'
+import React, { memo, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { getParticularAsteroid } from '../../../redux/reducers/reducerDataAsteroids'
+import { changeFlagForBasketList } from '../../../redux/reducers/reducerFlagRender'
 
-const DesktopInfoBlock = ({ diameter, distance, hazardous }) => {
-
-  const {changedDistances} = useSelector(s => s.reducerFlagRender)
-
+const DesktopInfoBlock = ({
+  date,
+  diameter,
+  distance,
+  hazardous,
+  idParticularAsteroid,
+  keyDateForArray
+}) => {
+  const { changedDistances, listNonEmpty } = useSelector((s) => s.reducerFlagRender)
+  const dispatch = useDispatch()
+const [disabled, setDisabled] = useState(false)
   const getDistance = () => {
     const kilometers = Math.round(distance.kilometers)
     const lunar = Math.round(distance.lunar)
     return (changedDistances && `${lunar}`) || `${kilometers} км`
+  }
+
+  const sendAsteroid = () => {
+    dispatch(getParticularAsteroid(idParticularAsteroid, keyDateForArray))
+    dispatch(changeFlagForBasketList(!listNonEmpty))
+    setDisabled(!disabled)
   }
 
   return (
@@ -17,7 +32,7 @@ const DesktopInfoBlock = ({ diameter, distance, hazardous }) => {
         <div className="flex flex-row mb-8">
           <span>Дата</span>
           <span className="flex flex-grow border-b border-black border-dashed mb-1" />
-          <span>12 сентября 2021</span>
+          <span>{date}</span>
         </div>
         <div className="flex flex-row mb-8">
           <span>Расстояние</span>
@@ -36,10 +51,14 @@ const DesktopInfoBlock = ({ diameter, distance, hazardous }) => {
           <p className="font-bold mb-8">{(hazardous && 'Опасен') || 'Не опасен'}</p>
         </span>
         <button
+          disabled={disabled}
+          onClick={sendAsteroid}
           type="button"
           className="rounded-full focus:outline-none transition duration-500 ease-in-out bg-blue  transition transform hover:translate-y-1 "
         >
-          <div className="mx-16 my-14 whitespace-nowrap text-white">На уничтожение</div>
+          <div className="mx-16 my-14 whitespace-nowrap text-white">
+            {(disabled && 'Отправлено') || 'На уничтожение'}
+          </div>
         </button>
       </div>
     </>

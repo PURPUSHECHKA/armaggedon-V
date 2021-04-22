@@ -1,9 +1,11 @@
 import axios from 'axios'
 
 const DATA_ASTEROIDS_FOR_THE_CURRENT_WEEK = 'DATA_ASTEROIDS_FOR_THE_CURRENT_WEEK'
+const GET_PARTICULAR_ASTEROID = 'GET_PARTICULAR_ASTEROID'
 
 const initialState = {
-  currentWeekData: {}
+  currentWeekData: {},
+  listOfParticularsAsteroids: []
 }
 
 export default (state = initialState, action) => {
@@ -12,6 +14,13 @@ export default (state = initialState, action) => {
       return {
         ...state,
         currentWeekData: action.getObjectOfList
+      }
+    }
+    case GET_PARTICULAR_ASTEROID: {
+      return {
+        ...state,
+        listOfParticularsAsteroids: [...state.listOfParticularsAsteroids, action.thisAsteroid]
+
       }
     }
     default:
@@ -25,7 +34,21 @@ export const getDataForTheCurrentWeek = () => {
       const { data: getObjectOfList } = await axios('/api/v1/initialListOfAsteroids')
       dispatch({ type: DATA_ASTEROIDS_FOR_THE_CURRENT_WEEK, getObjectOfList })
     } catch (err) {
-      console.log(new Error(err))
+      console.error(new Error(err))
+    }
+  }
+}
+
+export const getParticularAsteroid = (currentId, date) => {
+  return async (dispatch, getState) => {
+    try {
+      const store = getState()
+      const thisAsteroid = store.reducerDataAsteroids.currentWeekData[date].find(
+        ({ id }) => id === currentId
+      )
+      dispatch({ type: GET_PARTICULAR_ASTEROID, thisAsteroid })
+    } catch (err) {
+      console.error(new Error(err))
     }
   }
 }

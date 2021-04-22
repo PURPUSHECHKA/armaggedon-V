@@ -1,38 +1,68 @@
 import React, { memo } from 'react'
+import { useSelector } from 'react-redux'
 import Header from './Header'
 
 const BasketForDestroy = () => {
+  const { listOfParticularsAsteroids } = useSelector((s) => s.reducerDataAsteroids)
+  const { listNonEmpty } = useSelector((s) => s.reducerFlagRender)
+
   return (
-    <>
+    <div className="grid md:w-920 mx-auto">
       <Header />
-      <div className="grid grid-row-2">
-        <h1>Здесь будет корзина со списком на уничтожение!</h1>
-        <section>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pellentesque sodales lorem
-          ut convallis. Fusce orci nunc, cursus et interdum in, posuere eget risus. Donec tempus
-          erat sit amet hendrerit tincidunt. Praesent tristique turpis sed nulla blandit
-          pellentesque. Nunc nibh magna, blandit non ultrices vitae, venenatis a velit. Aenean
-          rhoncus, elit vel hendrerit dignissim, leo lectus ornare odio, sed dictum sapien arcu eget
-          nibh. Nullam posuere sapien vitae quam venenatis, vel imperdiet neque sodales. Vestibulum
-          dolor velit, dapibus pharetra lorem sit amet, blandit sollicitudin dui. Morbi facilisis,
-          metus eget commodo tristique, tortor ligula volutpat lectus, congue sagittis neque odio at
-          magna. Mauris vehicula mi et lorem aliquet aliquet. Aliquam interdum sed ante eget
-          interdum. Maecenas lacinia diam non turpis aliquam, id pharetra nunc tincidunt. Nullam et
-          viverra turpis. Etiam ut condimentum tellus. Vestibulum ante ipsum primis in faucibus orci
-          luctus et ultrices posuere cubilia curae; Sed euismod est sit amet ante facilisis
-          imperdiet. Sed ac vestibulum eros, a accumsan erat. Morbi aliquet est non pretium commodo.
-          Mauris sollicitudin magna et massa venenatis tempus. Cras sit amet neque eget mauris
-          varius efficitur. Etiam facilisis lectus sed quam porttitor, quis aliquet magna semper.
-          Sed sagittis, mauris at mattis venenatis, sapien eros semper lectus, non finibus turpis
-          magna a felis. Morbi at mauris rhoncus, dapibus diam ut, sodales odio. Vestibulum volutpat
-          vitae erat nec sagittis. Proin feugiat nunc venenatis tempor lacinia. Aliquam accumsan
-          quam sit amet neque condimentum, nec laoreet lectus porta. Ut pretium hendrerit lacus, id
-          elementum quam finibus in. Nunc faucibus vitae ipsum at dictum. Ut hendrerit velit id
-          egestas malesuada. Suspendisse commodo, dolor non cursus vestibulum, turpis neque
-          tristique leo, non convallis nisl sem id tellus.
-        </section>
-      </div>
-    </>
+      <h1 className="justify-self-center md:text-3xl font-bold mb-19">
+        Список астероидов на уничтожение
+      </h1>
+      <table className="rounded-t-lg mx-40 bg-gray-800 text-gray-200">
+        <thead>
+          <tr className="grid grid-cols-4 place-items-center border-b border-gray-300">
+            <th className="col-span-1 p-3">Название</th>
+            <th className="col-span-1 p-3">Дата</th>
+            <th className="col-span-1 p-3">Опасность</th>
+            <th className="col-span-1 p-3">Размер</th>
+          </tr>
+        </thead>
+        <tbody>
+          {(listNonEmpty &&
+            listOfParticularsAsteroids.map((asteroid) => {
+              const regex = /(?<=\()\w*\s*\w*/g
+              const name = asteroid.name.match(regex).join('')
+
+                    const averageDiameter = () => {
+                      const { meters } = asteroid.estimated_diameter
+                      const { estimated_diameter_min: min, estimated_diameter_max: max } = meters
+                      return +Math.round(max - min).toFixed(0)
+                    }
+
+                    const { is_potentially_hazardous_asteroid: hazardous } = asteroid
+
+                            const dateAsteroid =
+                              asteroid.close_approach_data[0]
+                                .close_approach_date_full
+                            console.log('dateAsteroid', dateAsteroid)
+                            const date = new Date(dateAsteroid).toLocaleString('ru', {
+                              day: 'numeric',
+                              month: 'long',
+                              year: 'numeric'
+                            })
+              return (
+                <tr
+                  key={asteroid.id}
+                  className="grid grid-cols-4 place-items-center bg-gray-700 border-b border-gray-600"
+                >
+                  <td className="col-span-1 p-3">{name}</td>
+                  <td className="col-span-1 p-3">{date}</td>
+                  <td className="col-span-1 p-3">{(hazardous && 'Опасен') || 'Не опасен'}</td>
+                  <td className="col-span-1 p-3">{averageDiameter()}</td>
+                </tr>
+              )
+            })) || (
+            <tr>
+              <td className="grid place-items-center text-3xl">Список пуст</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </div>
   )
 }
 

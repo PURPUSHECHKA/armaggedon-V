@@ -4,7 +4,7 @@ const MobLargeAsteroid = () => {
   return (
     <div className="md:hidden col-start-1 col-end-14 row-start-1 row-end-6">
       <svg
-      className="absolute z-0"
+        className="absolute z-0"
         width="288"
         height="81"
         viewBox="0 0 288 81"
@@ -41,7 +41,6 @@ const MobLargeAsteroid = () => {
     </div>
   )
 }
-
 
 MobLargeAsteroid.propTypes = {}
 

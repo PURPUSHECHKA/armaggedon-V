@@ -45,7 +45,7 @@ const readingFile = async (file) => {
 }
 
 const writingFile = (data, file) => {
-  return writeFile(`${__dirname}/data/${file}`, JSON.stringify(data), {encoding: 'utf8'})
+  return writeFile(`${__dirname}/data/${file}`, JSON.stringify(data), { encoding: 'utf8' })
 }
 
 server.get('/api/v1/initialListOfAsteroids', async (req, res) => {

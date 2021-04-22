@@ -1,5 +1,5 @@
 import React, { memo } from 'react'
-import {useDispatch, useSelector} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { changedFlagForDistances } from '../redux/reducers/reducerFlagRender'
 
 import SectionCards from './SectionCards'
@@ -30,11 +30,7 @@ const MainInfo = () => {
           </form>
           <span className="md:ml-auto">
             Расстояние &nbsp;
-            <button
-              type="button"
-              onClick={changeDistance}
-              className="focus:outline-none"
-            >
+            <button type="button" onClick={changeDistance} className="focus:outline-none">
               <span className={(changedDistances && 'border-b border-black') || 'font-bold'}>
                 в километрах,
               </span>
