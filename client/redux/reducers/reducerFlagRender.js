@@ -47,6 +47,5 @@ export const changeFlagForInfoOrDestroy = (flag) => {
 export const changeFlagForBasketList = (flag) => {
   return (dispatch) => {
     dispatch({ type: FLAG_FOR_BASKET_LIST, flag })
-    console.log(flag)
   }
 }

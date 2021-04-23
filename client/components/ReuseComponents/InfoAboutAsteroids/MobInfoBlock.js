@@ -1,6 +1,7 @@
 import React, { memo, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { getListOfAsteroids } from '../../../redux/reducers/reducerDataAsteroids'
+import calculateDistance from '../reuseFunctions/calculateDistance'
 
 const MobInfoBlock = ({
   date,
@@ -13,12 +14,7 @@ const MobInfoBlock = ({
   const { changedDistances } = useSelector((s) => s.reducerFlagRender)
   const dispatch = useDispatch()
   const [disabled, setDisabled] = useState(false)
-
-  const getDistance = () => {
-    const kilometers = Math.round(distance.kilometers)
-    const lunar = Math.round(distance.lunar)
-    return (changedDistances && `${lunar}`) || `${kilometers} км`
-  }
+  const getDistance = calculateDistance(distance, changedDistances)
 
   const sendAsteroid = () => {
     dispatch(getListOfAsteroids(idParticularAsteroid, keyDateForArray))
@@ -35,7 +31,7 @@ const MobInfoBlock = ({
         <div className="flex flex-row mb-8">
           <span>Расстояние</span>
           <span className="flex flex-grow border-b border-black border-dashed mb-1" />
-          <span>{getDistance()}</span>
+          <span>{getDistance}</span>
         </div>
         <div className="flex flex-row">
           <span>Размер</span>

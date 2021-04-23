@@ -1,5 +1,7 @@
 import React, { memo, useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
+
+import dataAboutAsteroid from './ReuseComponents/reuseFunctions/dataAboutAsteroid'
 import Header from './Header'
 
 const BasketForDestroy = () => {
@@ -48,7 +50,7 @@ const BasketForDestroy = () => {
                   }}
                 />
               </th>
-              <th className="auto-cols-fr p-3">Название</th>
+              <th className="col-span-1 p-3">Название</th>
               <th className="col-span-1 p-3">Дата</th>
               <th className="col-span-1 p-3">Опасность</th>
               <th className="col-span-1 p-3">Размер</th>
@@ -57,23 +59,7 @@ const BasketForDestroy = () => {
           <tbody>
             {(asteroidState.length > 0 &&
               asteroidState.map((asteroid) => {
-                const regex = /(?<=\()\w*\s*\w*/g
-                const name = asteroid.name.match(regex).join('')
-
-                const averageDiameter = () => {
-                  const { meters } = asteroid.estimated_diameter
-                  const { estimated_diameter_min: min, estimated_diameter_max: max } = meters
-                  return +Math.round(max - min).toFixed(0)
-                }
-
-                const { is_potentially_hazardous_asteroid: hazardous } = asteroid
-
-                const dateAsteroid = asteroid.close_approach_data[0].close_approach_date_full
-                const date = new Date(dateAsteroid).toLocaleString('ru', {
-                  day: 'numeric',
-                  month: 'long',
-                  year: 'numeric'
-                })
+                const {name, date, hazardous, averageDiameter} = dataAboutAsteroid(asteroid)
                 return (
                   <tr
                     key={asteroid.id}
@@ -88,7 +74,6 @@ const BasketForDestroy = () => {
                             asteroidState.map((obj) => {
                               if (obj.id === asteroid.id) {
                                 obj.select = checked
-                                console.log(checked)
                               }
                               return obj
                             })

@@ -23,7 +23,7 @@ const MainInfo = () => {
       <article className="flex flex-col mb-32 md:mb-56">
         <hr className=" h-1 border-none bg-black mb-lg" />
         <div div className="flex flex-col md:flex-row mb-24">
-          <form onSubmit="SOMESTATE">
+          <form>
             <label htmlFor="filterOutOnlyDangerous">
               <input
                 className="mb-16 md:mb-0 mr-10"
