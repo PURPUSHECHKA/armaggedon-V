@@ -1,7 +1,6 @@
 import React, { memo, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { getParticularAsteroid } from '../../../redux/reducers/reducerDataAsteroids'
-import { changeFlagForBasketList } from '../../../redux/reducers/reducerFlagRender'
+import { getListOfAsteroids } from '../../../redux/reducers/reducerDataAsteroids'
 
 const DesktopInfoBlock = ({
   date,
@@ -11,9 +10,9 @@ const DesktopInfoBlock = ({
   idParticularAsteroid,
   keyDateForArray
 }) => {
-  const { changedDistances, listNonEmpty } = useSelector((s) => s.reducerFlagRender)
+  const [disabled, setDisabled] = useState(false)
+  const { changedDistances } = useSelector((s) => s.reducerFlagRender)
   const dispatch = useDispatch()
-const [disabled, setDisabled] = useState(false)
   const getDistance = () => {
     const kilometers = Math.round(distance.kilometers)
     const lunar = Math.round(distance.lunar)
@@ -21,8 +20,7 @@ const [disabled, setDisabled] = useState(false)
   }
 
   const sendAsteroid = () => {
-    dispatch(getParticularAsteroid(idParticularAsteroid, keyDateForArray))
-    dispatch(changeFlagForBasketList(!listNonEmpty))
+    dispatch(getListOfAsteroids(idParticularAsteroid, keyDateForArray))
     setDisabled(!disabled)
   }
 

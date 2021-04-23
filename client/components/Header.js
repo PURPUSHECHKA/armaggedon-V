@@ -18,7 +18,7 @@ const Header = () => {
             Сервис мониторинга и уничтожения астероидов, опасно подлетающих к Земле.
           </span>
         </div>
-        <div className="grid justify-self-start text-left grid-cols-2 md:col-span-1 mb-auto md:ml-auto">
+        <div className="grid justify-self-start text-left grid-cols-2 md:col-span-1 mb-auto md:ml-auto mt-14">
           <Link to="/" onClick={changedFlag} className="text-left md:text-right md:ml-auto">
             <span className={(infoOrDestroy && 'border-b border-black') || 'font-bold'}>
               Астероиды

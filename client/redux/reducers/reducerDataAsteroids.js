@@ -1,11 +1,15 @@
 import axios from 'axios'
 
 const DATA_ASTEROIDS_FOR_THE_CURRENT_WEEK = 'DATA_ASTEROIDS_FOR_THE_CURRENT_WEEK'
+const GET_LIST_ASTEROIDS_FOR_DESTROY = 'GET_LIST_ASTEROIDS_FOR_DESTROY'
 const GET_PARTICULAR_ASTEROID = 'GET_PARTICULAR_ASTEROID'
+const GET_FULL_LIST_APPROXIMATION = 'GET_FULL_LIST_APPROXIMATION'
 
 const initialState = {
   currentWeekData: {},
-  listOfParticularsAsteroids: []
+  listOfParticularsAsteroids: [],
+  particularAsteroid: {},
+  approximationList: []
 }
 
 export default (state = initialState, action) => {
@@ -16,11 +20,22 @@ export default (state = initialState, action) => {
         currentWeekData: action.getObjectOfList
       }
     }
-    case GET_PARTICULAR_ASTEROID: {
+    case GET_LIST_ASTEROIDS_FOR_DESTROY: {
       return {
         ...state,
         listOfParticularsAsteroids: [...state.listOfParticularsAsteroids, action.thisAsteroid]
-
+      }
+    }
+    case GET_PARTICULAR_ASTEROID: {
+      return {
+        ...state,
+        particularAsteroid: action.thisAsteroid
+      }
+    }
+    case GET_FULL_LIST_APPROXIMATION: {
+      return {
+        ...state,
+        approximationList: action.list
       }
     }
     default:
@@ -39,14 +54,46 @@ export const getDataForTheCurrentWeek = () => {
   }
 }
 
-export const getParticularAsteroid = (currentId, date) => {
+const gettingDataOfAsteroid = (getState, currentId, date) => {
+  const store = getState()
+  const thisAsteroid = store.reducerDataAsteroids.currentWeekData[date].find(
+    ({ id }) => id === currentId
+  )
+  return thisAsteroid
+}
+
+export const getListOfAsteroids = (currentId, date) => {
+  return async (dispatch, getState) => {
+    try {
+      const thisAsteroid = gettingDataOfAsteroid(getState, currentId, date)
+      dispatch({ type: GET_LIST_ASTEROIDS_FOR_DESTROY, thisAsteroid })
+    } catch (err) {
+      console.error(new Error(err))
+    }
+  }
+}
+export const getAsteroid = (currentId, date) => {
+  return async (dispatch, getState) => {
+    try {
+      const thisAsteroid = gettingDataOfAsteroid(getState, currentId, date)
+      dispatch({ type: GET_PARTICULAR_ASTEROID, thisAsteroid })
+    } catch (err) {
+      console.error(new Error(err))
+    }
+  }
+}
+
+export const listOfAllApproximation = () => {
   return async (dispatch, getState) => {
     try {
       const store = getState()
-      const thisAsteroid = store.reducerDataAsteroids.currentWeekData[date].find(
-        ({ id }) => id === currentId
-      )
-      dispatch({ type: GET_PARTICULAR_ASTEROID, thisAsteroid })
+      const {
+        links: { self: url }
+      } = store.reducerDataAsteroids.particularAsteroid
+      const {
+        data: { close_approach_data: list }
+      } = await axios(url)
+      dispatch({ type: GET_FULL_LIST_APPROXIMATION , list})
     } catch (err) {
       console.error(new Error(err))
     }

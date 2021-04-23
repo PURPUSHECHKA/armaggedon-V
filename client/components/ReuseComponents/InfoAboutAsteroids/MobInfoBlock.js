@@ -1,7 +1,6 @@
 import React, { memo, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { getParticularAsteroid } from '../../../redux/reducers/reducerDataAsteroids'
-import {changeFlagForBasketList} from '../../../redux/reducers/reducerFlagRender'
+import { getListOfAsteroids } from '../../../redux/reducers/reducerDataAsteroids'
 
 const MobInfoBlock = ({
   date,
@@ -11,7 +10,7 @@ const MobInfoBlock = ({
   idParticularAsteroid,
   keyDateForArray
 }) => {
-  const { changedDistances, listNonEmpty } = useSelector((s) => s.reducerFlagRender)
+  const { changedDistances } = useSelector((s) => s.reducerFlagRender)
   const dispatch = useDispatch()
   const [disabled, setDisabled] = useState(false)
 
@@ -22,8 +21,7 @@ const MobInfoBlock = ({
   }
 
   const sendAsteroid = () => {
-    dispatch(getParticularAsteroid(idParticularAsteroid, keyDateForArray))
-    dispatch(changeFlagForBasketList(!listNonEmpty))
+    dispatch(getListOfAsteroids(idParticularAsteroid, keyDateForArray))
     setDisabled(!disabled)
   }
   return (
@@ -51,7 +49,7 @@ const MobInfoBlock = ({
           <p className="font-bold mb-8">{(hazardous && 'Опасен') || 'Не опасен'}</p>
         </span>
         <button
-        disabled={disabled}
+          disabled={disabled}
           onClick={sendAsteroid}
           type="button"
           className="rounded-full focus:outline-none transition duration-500 ease-in-out bg-blue hover:bg-red transition transform hover:translate-y-1"

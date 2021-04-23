@@ -1,5 +1,7 @@
 import React, { memo } from 'react'
+import {useDispatch} from 'react-redux'
 import {Link} from 'react-router-dom'
+import { getAsteroid, listOfAllApproximation } from '../../../redux/reducers/reducerDataAsteroids'
 
 import DesktopLargeAsteroid from '../Asteroids/DesktopAsteroids/DesktopLargeAsteroid'
 import MobLargeAsteroid from '../Asteroids/MobAsteroids/MobLargeAsteroid'
@@ -17,13 +19,28 @@ const LargeHazardSection = ({
   idParticularAsteroid,
   keyDateForArray
 }) => {
+  const dispatch = useDispatch()
+  const sendAsteroid = () => {
+    dispatch(getAsteroid(idParticularAsteroid, keyDateForArray))
+  }
+  const sendListApproximation = () => {
+    dispatch(listOfAllApproximation())
+  }
   return (
     <section className="rounded-md border border-black mb-19 md:mb-16">
       <div className="grid grid-cols-14 grid-rows-8 relative h-145 md:h-200 minmd:border bg-gradient-to-r from-lightRed to-red rounded-md">
         <DesktopLargeAsteroid />
         <MobLargeAsteroid />
         <div className="z-40 whitespace-nowrap col-start-2 col-end-4 row-start-7 row-end-8 md:col-start-6 md:col-end-8 md:row-start-2 md:row-end-2">
-          <Link to="/aboutAsteroid" className="text-lg border-b border-black">{name}</Link>
+          <Link
+            to="/aboutAsteroid"
+            onClick={() => {
+              return [sendAsteroid(), sendListApproximation()]
+            }}
+            className="text-lg border-b border-black"
+          >
+            {name}
+          </Link>
         </div>
         <DesktopInfoBlock
           date={date}

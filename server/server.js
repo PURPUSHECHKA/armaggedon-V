@@ -53,8 +53,8 @@ server.get('/api/v1/initialListOfAsteroids', async (req, res) => {
     const initialList = await readingFile('initialListOfAsteroids.json')
     res.send(initialList)
   } catch (err) {
-    const currencyDate = new Date().toISOString().slice(0, 10)
-    const url = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${currencyDate}&api_key=DEMO_KEY`
+    const currentDate = new Date().toISOString().slice(0, 10)
+    const url = `https://api.nasa.gov/neo/rest/v1/feed?start_date=${currentDate}&api_key=DEMO_KEY`
     const {
       data: { near_earth_objects: getObjectOfList }
     } = await axios(url)

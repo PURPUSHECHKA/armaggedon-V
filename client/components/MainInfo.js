@@ -1,15 +1,21 @@
-import React, { memo } from 'react'
+import React, { memo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { changedFlagForDistances } from '../redux/reducers/reducerFlagRender'
 
 import SectionCards from './SectionCards'
 
 const MainInfo = () => {
+  const[isDangerous, setIsDangerous] = useState(false)
+
   const { changedDistances } = useSelector((s) => s.reducerFlagRender)
   const dispatch = useDispatch()
 
   const changeDistance = () => {
     dispatch(changedFlagForDistances(!changedDistances))
+  }
+
+  const showOnlyDangerousAsteroids = (e) => {
+    setIsDangerous(e.target.checked)
   }
 
   return (
@@ -22,8 +28,8 @@ const MainInfo = () => {
               <input
                 className="mb-16 md:mb-0 mr-10"
                 type="checkbox"
-                name="dataCard"
-                value="cards"
+                onChange={showOnlyDangerousAsteroids}
+                checked={isDangerous}
               />
               Показать только опасные
             </label>
@@ -43,7 +49,7 @@ const MainInfo = () => {
             </button>
           </span>
         </div>
-        <SectionCards />
+        <SectionCards isDangerous={isDangerous} />
       </article>
     </main>
   )
